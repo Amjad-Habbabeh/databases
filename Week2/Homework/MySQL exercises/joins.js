@@ -32,17 +32,13 @@ async function seedDatabase() {
   connection.connect();
 
   try {
-     execQuery( names_Authors_and_Collaborators,(err ,results)=>{
-      if(err) throw err;
-      console.log('names_Authors_and_Collaborators',results);
+     const res= await execQuery( names_Authors_and_Collaborators);
+      console.log('names_Authors_and_Collaborators',res);
 
-    });
-    
-     execQuery( Authors_and_their_pubished_paper_title,(err ,result)=>{
-      if(err) throw err;
-      console.log('Authors_and_their_pubished_paper_title:',result);
+    const res2= await execQuery( Authors_and_their_pubished_paper_title);
+      console.log('Authors_and_their_pubished_paper_title:',res2);
 
-    });
+
 
   } catch (error) {
     console.error(error);
