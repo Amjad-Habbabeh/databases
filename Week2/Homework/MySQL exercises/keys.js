@@ -24,7 +24,7 @@ async function seedDatabase() {
     const Add_COLUMN = `
     ALTER TABLE Authors
     ADD collaborator int ,
-    ADD FOREIGN KEY FK_no(Collaborator) REFERENCES Authors(author_no);
+    ADD FOREIGN KEY (Collaborator) REFERENCES Authors(author_no);
     `
   connection.connect();
 
