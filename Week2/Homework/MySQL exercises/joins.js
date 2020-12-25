@@ -15,14 +15,17 @@ const execQuery = util.promisify(connection.query.bind(connection));
 async function seedDatabase() {
   const names_Authors_and_Collaborators = `
   
-    SELECT A.author_name , B.author_name AS collaborator_name FROM authors A     
+    SELECT A.author_name , B.author_name AS collaborator_name
+    FROM authors A     
     LEFT JOIN authors B 
     ON A.collaborator=B.author_no ;`;
 
   // the relation between Authors table and research_papers table is M-M so i need to creat a bridge table :
   const Authors_and_their_pubished_paper_title = `
-    SELECT A.*,R.paper_title
-  FROM authors A left join author_research_papers B on A.author_no=B.author_id
+  SELECT A.*,R.paper_title
+  FROM authors A 
+  left join author_research_papers B
+  on A.author_no=B.author_id
   LEFT JOIN research_papers R
   ON B.paper_id=R.paper_id `;
 

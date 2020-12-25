@@ -14,7 +14,7 @@ const execQuery = util.promisify(connection.query.bind(connection));
 
 async function seedDatabase() {
   const researchPapers_and_Thier_authors = `
-    SELECT A.paper_id,paper_title,count(A.author_id)
+    SELECT A.paper_id,count(A.author_id)
     FROM research_papers R 
     LEFT JOIN author_research_papers A
     ON A.paper_id = R.paper_id
@@ -43,47 +43,54 @@ async function seedDatabase() {
     `;
 
   connection.connect();
-
-  try {
-    execQuery(researchPapers_and_Thier_authors, (err, results) => {
-      if (err) throw err;
+  execQuery(researchPapers_and_Thier_authors)
+    .catch((err) => {
+      throw err;
+    })
+    .then((results) => {
       console.log('research papers and the number of authors are:', results);
     });
-
-    execQuery(sumOf_female_researcher, (err, result) => {
-      if (err) throw err;
+  execQuery(sumOf_female_researcher)
+    .catch((err) => {
+      throw err;
+    })
+    .then((results) => {
       console.log(
         'the Sum of the research papers published by all female authors is:',
-        result
+        results
       );
     });
-
-    execQuery(averageOf_H_index_perUnive, (err, result) => {
-      if (err) throw err;
+  execQuery(averageOf_H_index_perUnive)
+    .catch((err) => {
+      throw err;
+    })
+    .then((results) => {
       console.log(
         'Average of the h-index of all authors per university is:',
-        result
+        results
       );
     });
-    execQuery(sumOf_researchPapers_perUnive, (err, result) => {
-      if (err) throw err;
+  execQuery(sumOf_researchPapers_perUnive)
+    .catch((err) => {
+      throw err;
+    })
+    .then((results) => {
       console.log(
         'Sum of the research papers of the authors per university is:',
-        result
+        results
+      );
+    });
+  execQuery(minAndMax_Of_H_index_perUnive)
+    .catch((err) => {
+      throw err;
+    })
+    .then((results) => {
+      console.log(
+        'Minimum and maximum of the h-index of all authors per university is:',
+        results
       );
     });
 
-    execQuery(minAndMax_Of_H_index_perUnive, (err, result) => {
-      if (err) throw err;
-      console.log(
-        'Minimum and maximum of the h-index of all authors per university is:',
-        result
-      );
-    });
-  } catch (error) {
-    console.error(error);
-    connection.end();
-  }
   connection.end();
 }
 
