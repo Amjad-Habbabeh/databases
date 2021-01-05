@@ -21,18 +21,17 @@ async function seedDatabase() {
         gender ENUM('f','m')
     );`;
 
-    const Add_COLUMN = `
+  const Add_COLUMN = `
     ALTER TABLE Authors
     ADD collaborator int ,
     ADD FOREIGN KEY (Collaborator) REFERENCES Authors(author_no);
-    `
+    `;
   connection.connect();
 
   try {
     // call the function that returns promise
-    await execQuery( CREATE_Authors_TABLE );
+    await execQuery(CREATE_Authors_TABLE);
     await execQuery(Add_COLUMN);
-
   } catch (error) {
     console.error(error);
     connection.end();
