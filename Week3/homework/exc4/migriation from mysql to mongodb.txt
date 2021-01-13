@@ -1,0 +1,42 @@
+ - Install MongoDB () Download the installer 
+Download the MongoDB Community
+
+Run the Windows Installer from the Windows Command Interpreter
+ msiexec.exe /l*v mdbinstall.log  /qb /i mongodb-windows-x86_64-4.4.2-signed.msi
+The operation installs the binaries to the default directory C:\Program Files\MongoDB\Server\4.4\bin.
+
+-Create database directory.
+Create the data directory where MongoDB stores data. MongoDB’s default data directory path is the absolute path \data\db on the drive from which you start MongoDB.
+
+From the Command Interpreter, create the data directories:
+
+cd C:\
+md "\data\db"
+
+
+
+-Start your MongoDB database.
+To start MongoDB, run mongod.exe.
+
+"C:\Program Files\MongoDB\Server\4.4\bin\mongod.exe" --dbpath="c:\data\db"
+
+-Add MongoDB binaries to the System PATH
+All command-line examples in this tutorial are provided as absolute paths to the MongoDB binaries. You can add C:\Program Files\MongoDB\Server\4.4\bin to your System PATH and then omit the full path to the MongoDB binaries.
+
+- Create an Atlas account 
+- Create a cluster
+- White-list your IP address by adding it to the IP access list under 'Network Access'
+- Create a database user , you can do that by clicking on connect and creating  a user name and a password
+- Connect to your cluster by clicking on connect , then selecting to connect with mongo shell --> copy the connection string --> run it in the terminal --> 
+type in the password when prompted
+-Install Compass then connect it to MongoDB using the connection string
+-export the data from the database new_world to 3 .csv files :
+
+
+select * into outfile 'city.csv' FIELDS TERMINATED BY ',' LINES TERMINATEBY '\n' from city;
+
+select * into outfile 'country.csv' FIELDS TERMINATED BY ',' LINETERMINATED BY '\n' from country;
+select * into outfile 'countrylanguage.csv' FIELDS TERMINATED BY ',' LINETERMINATED BY '\n' from countrylanguage;
+
+- From Compass UI click on Add Data and select the .csv file you want to import. 
+    
